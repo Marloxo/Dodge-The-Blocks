@@ -6,6 +6,7 @@ public class Player : MonoBehaviour
     public float speed = 15f;
     public float mapWidth = 5f;
     private Rigidbody2D rb;
+    GameManager gameManager = GameManager.Get_GameManager();
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -22,5 +23,11 @@ public class Player : MonoBehaviour
 
         newPosition.x = Mathf.Clamp(newPosition.x, -mapWidth, mapWidth);
         rb.MovePosition(newPosition);
+    }
+
+    void OnCollisionEnter2D()
+    {
+        //FindObjectOfType<GameManager>().EndGame();
+        gameManager.EndGame();
     }
 }
