@@ -1,6 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
-
 public class Block : MonoBehaviour
 {
     public float gravityScaleFactor = 20f;
@@ -14,6 +12,9 @@ public class Block : MonoBehaviour
     {
         if (transform.position.y < -2f)
         {
+            //Get GameManager and Increase score
+            var _Manager = GameManager.Get_GameManager();
+            _Manager.IncreaseScore();
             Destroy(gameObject);
         }
     }

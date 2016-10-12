@@ -2,23 +2,21 @@
 using System.Collections;
 using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
-{
+{ //Singleton Object
     public static GameManager instance;
-
+    public GameObject RestartButton;
     public float slowness = 10f;
-    private GameManager()
-    {
-        instance = this;
-    }
-    public static GameManager Get_GameManager()
-    {
-        return instance;
-    }
+    public static int score = 0;
+    public void IncreaseScore() { score++; }
+    public void ResetScore() { score = 0; }
+
+    private GameManager() { instance = this; }
+    public static GameManager Get_GameManager() { return instance; }
     public void EndGame()
     {
-        StartCoroutine(RestartLevel());
+        StartCoroutine(EndLevel());
     }
-    IEnumerator RestartLevel()
+    IEnumerator EndLevel()
     {
         //////before 1 sec//////
 
@@ -38,14 +36,19 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(1f / slowness);
 
         //////after 1 sec//////
-
         //return time movement to Normal!!
         Time.timeScale = 1f;
         Time.fixedDeltaTime = Time.fixedDeltaTime * slowness;
 
-
-
+        //Stop the Game
+        RestartButton.SetActive(true);
+        Time.timeScale = 0;
+    }
+    public void RestartLevel()
+    {
         //Alternative: SceneManager.LoadScene(0);
+        Time.timeScale = 1f;
+        ResetScore();
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }

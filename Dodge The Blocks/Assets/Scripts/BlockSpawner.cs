@@ -5,6 +5,7 @@ public class BlockSpawner : MonoBehaviour
     public GameObject blockPrefab;
     public float timeBetweenWaves = 1f; //frequence
     private float timeToSpawn = 2f;
+
     void Update()
     {
         if (Time.time >= timeToSpawn)
@@ -12,7 +13,6 @@ public class BlockSpawner : MonoBehaviour
             SpawnBlocks();
             timeToSpawn = Time.time + timeBetweenWaves;
         }
-
     }
 
     void SpawnBlocks()
